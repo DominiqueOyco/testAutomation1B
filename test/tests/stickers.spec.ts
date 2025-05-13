@@ -7,14 +7,32 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Verify default values at stickers page matches required default values', () => {
-    //TODO: fix this code
     test('Verify default format is stickers', async ({ page }) => {
-        const defaultFormat = page.getByTestId('stickers');
-        const defaultFormatText = await defaultFormat.textContent();
-        const normalizedText = defaultFormatText?.toLowerCase().trim();
 
+        const defaultFormat = page.locator('[data-format="stickers"]'); //use the locator for the stickers button in the format section
+        const defaultFormatText = await defaultFormat.textContent(); // Resolve the promise
+        const normalizedText = defaultFormatText?.toLowerCase()
+
+        // Compare with the expected value from the JSON file, also converted to lowercase
         const expectedText = `${data.format}`;
-        expect(normalizedText).toBe(expectedText);
+        expect(normalizedText).toBe(expectedText); // Ensure the text matches
+
+        const classAttr = await defaultFormat.getAttribute('class');
+
+        // Assert that the class includes expected Tailwind selection styles
+        const expectedClasses = [
+            'bg-avy-blue-50',
+            'border-avy',
+            'border-avy-blue-600',
+            'outline',
+            'outline-2',
+            'outline-avy-blue-600',
+            '-outline-offset-2'
+        ];
+
+        for (const className of expectedClasses) {
+            expect(classAttr).toContain(className);
+        }
     });
 
     test('Verify default shape is round', async ({ page }) => {
@@ -26,9 +44,8 @@ test.describe('Verify default values at stickers page matches required default v
         expect(normalizedText).toBe(expectedText);
     });
 
-    //TODO: fix this code
     test('Verify default size is 2', async ({ page }) => {
-        const defaultSize = page.getByTestId('CalculatorSummarySize');
+        const defaultSize = page.locator('#size_form_select');
         const defaultSizeText = await defaultSize.textContent(); // Resolve the promise
         const normalizedText = defaultSizeText?.toLowerCase().split('"')[0].trim(); // Convert to lowercase, removes the extra values after the size value (.split('"')[0] removes the words after the size value starting from "), and trim whitespace
 
