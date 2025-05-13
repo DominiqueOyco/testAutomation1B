@@ -17,9 +17,10 @@ test.describe('Verify default values at stickers page matches required default v
         const expectedText = `${data.format}`;
         expect(normalizedText).toBe(expectedText); // Ensure the text matches
 
+        // Check if stickers is the default button that is selected when the customer visits the stickers page
         const classAttr = await defaultFormat.getAttribute('class');
 
-        // Assert that the class includes expected Tailwind selection styles
+        // Check if the class contains the following so that we can confirm that the Stickers button is outlined and selected
         const expectedClasses = [
             'bg-avy-blue-50',
             'border-avy',
