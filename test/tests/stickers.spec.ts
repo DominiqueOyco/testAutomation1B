@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Verify default values at stickers page matches required default values', () => {
-    test('Verify default format is stickers', async ({ page }) => {
+    test(`Verify default format is ${data.format}`, async ({ page }) => {
 
         const defaultFormat = page.locator('[data-format="stickers"]'); //use the locator for the stickers button in the format section
         const defaultFormatText = await defaultFormat.textContent(); // Resolve the promise
@@ -36,7 +36,7 @@ test.describe('Verify default values at stickers page matches required default v
         }
     });
 
-    test('Verify default shape is round', async ({ page }) => {
+    test(`Verify default shape is ${data.shape}`, async ({ page }) => {
         const defaultShape = page.getByTestId('shape-select-btn');
         const defaultShapeText = await defaultShape.textContent();
         const normalizedText = defaultShapeText?.toLowerCase().trim();
@@ -45,7 +45,7 @@ test.describe('Verify default values at stickers page matches required default v
         expect(normalizedText).toBe(expectedText);
     });
 
-    test('Verify default size is 2', async ({ page }) => {
+    test(`Verify default size is ${data.size}`, async ({ page }) => {
         const defaultSize = page.locator('#size_form_select');
         const defaultSizeText = await defaultSize.textContent(); // Resolve the promise
         const normalizedText = defaultSizeText?.toLowerCase().split('"')[0].trim(); // Convert to lowercase, removes the extra values after the size value (.split('"')[0] removes the words after the size value starting from "), and trim whitespace
@@ -54,12 +54,12 @@ test.describe('Verify default values at stickers page matches required default v
         expect(normalizedText).toBe(expectedText); // Ensure the text matches
     });
 
-    test('Verify default material is Matte White Sticker Film', async ({ page }) => {
+    test(`Verify default material is ${data.material}`, async ({ page }) => {
         const defaultMaterial = page.getByTestId('material-select-btn');
         await expect(defaultMaterial).toContainText(`${data.material}`);
     });
 
-    test('Verify default sticker quantity & price is 75 stickers', async ({ page }) => {
+    test(`Verify default sticker quantity is ${data['sticker quantity & price']}`, async ({ page }) => {
         // Get the text content of the element
         const defaultStickerQuantityElement = page.getByTestId('Price Tier-select-btn');
         const defaultStickerQuantityText = await defaultStickerQuantityElement.textContent(); // Resolve the promise
