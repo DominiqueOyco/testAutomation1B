@@ -35,6 +35,14 @@ test.describe('Verify default values at rolls page matches required default valu
         }
     });
 
+    test(`Verify default shape is ${data.shape}`, async ({ page }) => {
+        const defaultShape = page.getByTestId('shape-select-btn');
+        const defaultShapeText = await defaultShape.textContent();
+        const normalizedText = defaultShapeText?.toLowerCase().trim();
+
+        const expectedText = `${data.shape}`;
+        expect(normalizedText).toBe(expectedText);
+    })
 
     test(`Verify default price is ${data.price}`, async ({ page }) => {
         //checking if the price displayed in the webpage matches the price in the json file
