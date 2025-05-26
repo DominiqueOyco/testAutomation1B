@@ -8,7 +8,7 @@ test.beforeEach(async ({ page }) => {
 test.describe('Verify default values at rolls page matches required default values', () => {
     test(`Verify default format is ${data.format}`, async ({ page }) => {
 
-        const defaultFormat = page.locator('[data-format="rolls"]'); //use the locator for the stickers button in the format section
+        const defaultFormat = page.locator(`[data-format="rolls"]`); //use the locator for the stickers button in the format section
         const defaultFormatText = await defaultFormat.textContent(); // Resolve the promise
         const normalizedText = defaultFormatText?.toLowerCase()
 
@@ -43,6 +43,11 @@ test.describe('Verify default values at rolls page matches required default valu
         const expectedText = `${data.shape}`;
         expect(normalizedText).toBe(expectedText);
     })
+
+    test(`Verify default designs is ${data.designs}`, async ({ page }) => {
+        const defaultDesigns = page.locator('[data-value="1"]');
+        await expect(defaultDesigns).toContainText(`${data.designs}`);
+    });
 
     test(`Verify default price is ${data.price}`, async ({ page }) => {
         //checking if the price displayed in the webpage matches the price in the json file
