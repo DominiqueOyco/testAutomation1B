@@ -44,6 +44,15 @@ test.describe('Verify default values at rolls page matches required default valu
         expect(normalizedText).toBe(expectedText);
     })
 
+    test(`Verify default shape is ${data.material}`, async ({ page }) => {
+        const defaultMaterial = page.getByTestId('material-select-btn');
+        const defaultMaterialText = await defaultMaterial.textContent();
+        const normalizedText = defaultMaterialText?.trim();
+
+        const expectedText = `${data.material}`;
+        expect(normalizedText).toBe(expectedText);
+    })
+
     test(`Verify default designs is ${data.designs}`, async ({ page }) => {
         const defaultDesigns = page.locator('[data-value="1"]');
         await expect(defaultDesigns).toContainText(`${data.designs}`);
